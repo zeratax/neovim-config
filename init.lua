@@ -97,6 +97,11 @@ require('lazy').setup({
   },
 
   {
+    'https://codeberg.org/esensar/nvim-dev-container',
+    dependencies = 'nvim-treesitter/nvim-treesitter'
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -516,6 +521,13 @@ require('which-key').register {
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+}
+
+-- devcontainers
+-- https://github.com/esensar/nvim-dev-container#usage
+require("devcontainer").setup {
+  container_runtime = 'devcontainer-cli',
+  backup_runtime = 'docker'
 }
 
 -- mason-lspconfig requires that these setup functions are called in this order

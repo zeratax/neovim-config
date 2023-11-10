@@ -264,6 +264,11 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+-- Relative line numbers for jumping
+vim.wo.relativenumber = true
+
+-- leave a few lines over and under the cursor at all times
+vim.o.scrolloff = 5
 
 -- Enable mouse mode
 vim.o.mouse = 'a'

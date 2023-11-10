@@ -206,7 +206,24 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
+      'debugloop/telescope-undo.nvim',
     },
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          undo = {
+            -- telescope-undo.nvim config, see https://github.com/debugloop/telescope-undo.nvim
+            use_delta = false,
+            -- side_by_side = true,
+            layout_strategy = "horizontal",
+            layout_config = {
+              preview_width = 0.6,
+            },
+          },
+        },
+      })
+      require("telescope").load_extension("undo")
+    end,
   },
 
   {

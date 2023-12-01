@@ -198,7 +198,7 @@ require('lazy').setup({
     config = function()
       require("harpoon").setup({
         menu = {
-          width = vim.api.nvim_win_get_width(0) - 4,
+          width = vim.api.nvim_win_get_width(0) - 8,
         }
       })
     end,
@@ -421,6 +421,7 @@ vim.keymap.set('n', '<leader>u', require("telescope").extensions.undo.undo, { de
 
 vim.keymap.set('n', '<leader>ha', require("harpoon.mark").add_file, { desc = '[H]arpoon [A]dd current file' })
 vim.keymap.set('n', '<leader>hm', require("harpoon.ui").toggle_quick_menu, { desc = '[H]arpoon toggle Quick[M]enu' })
+vim.keymap.set('n', '<leader>ht', require('telescope').extensions.harpoon.marks, { desc = '[H]arpoon toggle [T]reesitter menu' })
 vim.keymap.set('n', '<leader>h1', function() require("harpoon.ui").nav_file(1) end,
   { desc = '[H]arpoon navigate to file [1]' })
 vim.keymap.set('n', '<leader>h2', function() require("harpoon.ui").nav_file(2) end,

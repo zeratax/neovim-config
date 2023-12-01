@@ -602,9 +602,6 @@ local servers = {
     },
   },
   ruff_lsp = {},
-  nil_ls = {},
-  nixd = {},
-  -- statix = {},
 }
 
 -- Setup neovim lua configuration
@@ -614,8 +611,19 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- some language servers do not work on windows
+if os.getenv('OS') ~= 'Windows_NT' then
+  -- nix language servers also require nix to be available
+  servers['nil_ls'] = {}
+  -- servers['statix'] = {}
+end
 
+-- nixos should install these packages itself
+-- while other operating systems should just use mason
 if os.getenv('NAME') == 'nixos' then
+  -- nixd isnt yet available for mason
+  servers['nixd'] = {}
+
   for server_name, _ in pairs(servers) do
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,

@@ -193,6 +193,17 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  {
+    'ThePrimeagen/harpoon',
+    config = function()
+      require("harpoon").setup({
+        menu = {
+          width = vim.api.nvim_win_get_width(0) - 4,
+        }
+      })
+    end,
+  },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -228,6 +239,7 @@ require('lazy').setup({
         },
       })
       require("telescope").load_extension("undo")
+      require("telescope").load_extension('harpoon')
     end,
   },
 
@@ -407,6 +419,17 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>",)
 vim.keymap.set('n', '<leader>u', require("telescope").extensions.undo.undo, { desc = '[U]ndo Tree' })
 
+vim.keymap.set('n', '<leader>ha', require("harpoon.mark").add_file, { desc = '[H]arpoon [A]dd current file' })
+vim.keymap.set('n', '<leader>hm', require("harpoon.ui").toggle_quick_menu, { desc = '[H]arpoon toggle Quick[M]enu' })
+vim.keymap.set('n', '<leader>h1', function() require("harpoon.ui").nav_file(1) end,
+  { desc = '[H]arpoon navigate to file [1]' })
+vim.keymap.set('n', '<leader>h2', function() require("harpoon.ui").nav_file(2) end,
+  { desc = '[H]arpoon navigate to file [2]' })
+vim.keymap.set('n', '<leader>h3', function() require("harpoon.ui").nav_file(3) end,
+  { desc = '[H]arpoon navigate to file [3]' })
+vim.keymap.set('n', '<leader>h4', function() require("harpoon.ui").nav_file(4) end,
+  { desc = '[H]arpoon navigate to file [4]' })
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
@@ -544,6 +567,7 @@ require('which-key').register {
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
+  ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },

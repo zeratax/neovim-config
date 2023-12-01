@@ -37,7 +37,6 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -118,7 +117,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -252,7 +251,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  {'sakhnik/nvim-gdb' },
+  { 'sakhnik/nvim-gdb' },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -390,7 +389,7 @@ local function live_grep_git_root()
   local git_root = find_git_root()
   if git_root then
     require('telescope.builtin').live_grep({
-      search_dirs = {git_root},
+      search_dirs = { git_root },
     })
   end
 end
@@ -602,7 +601,9 @@ local servers = {
     },
   },
   ruff_lsp = {},
-  -- nil_ls = {},
+  nil_ls = {},
+  nixd = {},
+  -- statix = {},
 }
 
 -- Setup neovim lua configuration
@@ -615,12 +616,12 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 if os.getenv('NAME') == 'nixos' then
   for server_name, _ in pairs(servers) do
-      require('lspconfig')[server_name].setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = servers[server_name],
-        filetypes = (servers[server_name] or {}).filetypes,
-      }
+    require('lspconfig')[server_name].setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers[server_name],
+      filetypes = (servers[server_name] or {}).filetypes,
+    }
   end
 else
   -- mason-lspconfig requires that these setup functions are called in this order

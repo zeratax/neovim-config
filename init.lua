@@ -611,6 +611,24 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+local function getOSName()
+    local file = io.open("/etc/os-release", "r")
+    if not file then return nil end
+
+    for line in file:lines() do
+        if line:match("^NAME=") then
+            -- Extracting the value part after NAME=
+            return line:match("^NAME=(.*)")
+        end
+    end
+
+    file:close()
+    return nil
+end
+
+local osName = getOSName()
+print(osName)
+
 -- some language servers do not work on windows
 if os.getenv('OS') ~= 'Windows_NT' then
   -- nix language servers also require nix to be available
@@ -620,7 +638,7 @@ end
 
 -- nixos should install these packages itself
 -- while other operating systems should just use mason
-if os.getenv('NAME') == 'nixos' then
+if osName and osName:match('NixOS') then
   -- nixd isnt yet available for mason
   servers['nixd'] = {}
 

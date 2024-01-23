@@ -9,8 +9,6 @@ pkgs.stdenv.mkDerivation rec {
     name = "nvim-config";
   };
 
-  buildInputs = [ pkgs.nodejs_20 ];
-
   dontUnpack = true;
   dontConfigure = true;
 

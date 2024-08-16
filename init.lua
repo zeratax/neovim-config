@@ -234,6 +234,13 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {
+    -- linters
+    'mfussenegger/nvim-lint',
+    config = function()
+
+    end
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -556,7 +563,20 @@ require('which-key').register {
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
 
+-- Enable the following linters
+require("lint").linters_by_ft = {
+  markdown = { 'vale', },
+  javascript = { 'standardjs', },
+  typescript = { 'biome', },
 }
+
+-- Create an autocmd that will run *after* we save the buffer.
+--  Run the linting command by filetype
+vim.api.nvim_create_autocmd("BufWritePost", {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.

@@ -586,23 +586,23 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-local function getOSName()
-    local file = io.open("/etc/os-release", "r")
-    if not file then return nil end
+local function getLinuxDistro()
+  local file = io.open("/etc/os-release", "r")
+  if not file then return nil end
 
-    for line in file:lines() do
-        if line:match("^NAME=") then
-            -- Extracting the value part after NAME=
-            return line:match("^NAME=(.*)")
-        end
+  for line in file:lines() do
+    if line:match("^NAME=") then
+      -- Extracting the value part after NAME=
+      return line:match("^NAME=(.*)")
     end
+  end
 
-    file:close()
-    return nil
+  file:close()
+  return nil
 end
 
-local osName = getOSName()
-print(osName)
+local linuxDistro = getLinuxDistro()
+print(linuxDistro)
 
 -- some language servers do not work on windows
 if os.getenv('OS') ~= 'Windows_NT' then
@@ -613,7 +613,7 @@ end
 
 -- nixos should install these packages itself
 -- while other operating systems should just use mason
-if osName and osName:match('NixOS') then
+if linuxDistro and linuxDistro:match('NixOS') then
   -- nixd isnt yet available for mason
   servers['nixd'] = {}
 
@@ -634,8 +634,10 @@ else
   -- Ensure the servers above are installed
   local mason_lspconfig = require 'mason-lspconfig'
 
+  local ensure_installed = vim.tbl_keys(servers)
+
   mason_lspconfig.setup {
-    ensure_installed = vim.tbl_keys(servers),
+    ensure_installed = ensure_installed
   }
   mason_lspconfig.setup_handlers {
     function(server_name)

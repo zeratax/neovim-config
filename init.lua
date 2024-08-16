@@ -1,42 +1,3 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -97,7 +58,11 @@ require('lazy').setup({
 
   {
     'https://codeberg.org/esensar/nvim-dev-container',
-    dependencies = 'nvim-treesitter/nvim-treesitter'
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    opts = {
+      container_runtime = 'devcontainer-cli',
+      backup_runtime = 'docker'
+    },
   },
 
   {
@@ -118,6 +83,7 @@ require('lazy').setup({
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -195,13 +161,11 @@ require('lazy').setup({
 
   {
     'ThePrimeagen/harpoon',
-    config = function()
-      require("harpoon").setup({
-        menu = {
-          width = vim.api.nvim_win_get_width(0) - 8,
-        }
-      })
-    end,
+    opts = {
+      menu = {
+        width = vim.api.nvim_win_get_width(0) - 8,
+      }
+    },
   },
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -251,17 +215,17 @@ require('lazy').setup({
       {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {
-          enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-          max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-          min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+          enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+          max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
+          min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
           line_numbers = true,
           multiline_threshold = 20, -- Maximum number of lines to show for a single context
-          trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-          mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+          trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+          mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
           -- Separator between context and content. Should be a single character string, like '-'.
           -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
           separator = nil,
-          zindex = 20, -- The Z-index of the context window
+          zindex = 20,     -- The Z-index of the context window
           on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
         },
       },
@@ -298,7 +262,6 @@ vim.wo.relativenumber = true
 
 -- leave a few lines over and under the cursor at all times
 vim.o.scrolloff = 5
-
 -- Enable mouse mode
 -- vim.o.mouse = 'a'
 
@@ -437,7 +400,8 @@ vim.keymap.set('n', '<leader>u', require("telescope").extensions.undo.undo, { de
 
 vim.keymap.set('n', '<leader>ha', require("harpoon.mark").add_file, { desc = '[H]arpoon [A]dd current file' })
 vim.keymap.set('n', '<leader>hm', require("harpoon.ui").toggle_quick_menu, { desc = '[H]arpoon toggle Quick[M]enu' })
-vim.keymap.set('n', '<leader>ht', require('telescope').extensions.harpoon.marks, { desc = '[H]arpoon toggle [T]reesitter menu' })
+vim.keymap.set('n', '<leader>ht', require('telescope').extensions.harpoon.marks,
+  { desc = '[H]arpoon toggle [T]reesitter menu' })
 vim.keymap.set('n', '<leader>h1', function() require("harpoon.ui").nav_file(1) end,
   { desc = '[H]arpoon navigate to file [1]' })
 vim.keymap.set('n', '<leader>h2', function() require("harpoon.ui").nav_file(2) end,
@@ -589,11 +553,6 @@ require('which-key').register {
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
 
--- devcontainers
--- https://github.com/esensar/nvim-dev-container#usage
-require("devcontainer").setup {
-  container_runtime = 'devcontainer-cli',
-  backup_runtime = 'docker'
 }
 
 -- Enable the following language servers

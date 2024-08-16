@@ -435,6 +435,20 @@ vim.keymap.set('n', '<leader>h3', function() require("harpoon.ui").nav_file(3) e
   { desc = '[H]arpoon navigate to file [3]' })
 vim.keymap.set('n', '<leader>h4', function() require("harpoon.ui").nav_file(4) end,
   { desc = '[H]arpoon navigate to file [4]' })
+vim.keymap.set('n', '<leader>h5', function() require("harpoon.ui").nav_file(4) end,
+  { desc = '[H]arpoon navigate to file [5]' })
+vim.keymap.set('n', '<leader>h6', function() require("harpoon.ui").nav_file(5) end,
+  { desc = '[H]arpoon navigate to file [6]' })
+vim.keymap.set('n', '<leader>h6', function() require("harpoon.ui").nav_file(6) end,
+  { desc = '[H]arpoon navigate to file [6]' })
+vim.keymap.set('n', '<leader>h7', function() require("harpoon.ui").nav_file(7) end,
+  { desc = '[H]arpoon navigate to file [7]' })
+vim.keymap.set('n', '<leader>h8', function() require("harpoon.ui").nav_file(8) end,
+  { desc = '[H]arpoon navigate to file [8]' })
+vim.keymap.set('n', '<leader>h9', function() require("harpoon.ui").nav_file(8) end,
+  { desc = '[H]arpoon navigate to file [9]' })
+vim.keymap.set('n', '<leader>h0', function() require("harpoon.ui").nav_file(0) end,
+  { desc = '[H]arpoon navigate to file [0]' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`

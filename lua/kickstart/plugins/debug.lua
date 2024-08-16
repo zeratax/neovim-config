@@ -40,6 +40,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
       },
+      automatic_installation = true,
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!

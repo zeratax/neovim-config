@@ -212,6 +212,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'nvim-treesitter/playground',
       {
         'nvim-treesitter/nvim-treesitter-context',
         opts = {
@@ -462,6 +463,8 @@ vim.defer_fn(function()
           ['if'] = '@function.inner',
           ['ac'] = '@class.outer',
           ['ic'] = '@class.inner',
+          ['ai'] = '@block.outer',
+          ['ii'] = '@block.inner',
         },
       },
       move = {

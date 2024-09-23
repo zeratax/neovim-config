@@ -13,7 +13,7 @@ return {
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
-    "nvim-neotest/nvim-nio",
+    'nvim-neotest/nvim-nio',
 
     -- Required dependency for nvim-dap-ui
     'nvim-neotest/nvim-nio',
@@ -24,6 +24,12 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    {
+      'mfussenegger/nvim-dap-python',
+      config = function()
+        require('dap-python').setup 'python'
+      end,
+    },
   },
   keys = function(_, keys)
     local dap = require 'dap'
@@ -58,15 +64,17 @@ return {
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
-      handlers = {},
+      handlers = {
+        -- python = require 'kickstart.plugins.dap.handler.python',
+      },
 
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'python',
       },
-      automatic_installation = true,
     }
 
     -- Dap UI setup

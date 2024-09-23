@@ -565,7 +565,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -641,6 +641,7 @@ require('lazy').setup({
           handlers = {
             function(server_name)
               local server = servers[server_name] or {}
+              -- https://github.com/neovim/nvim-lspconfig/pull/3232
               -- This handles overriding only values explicitly passed
               -- by the server configuration above. Useful when disabling
               -- certain features of an LSP (for example, turning off formatting for tsserver)

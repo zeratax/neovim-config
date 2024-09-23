@@ -202,6 +202,7 @@ require('lazy').setup({
         { '<leader>d', group = '[D]ocument' },
         { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
         { '<leader>h', group = '[H]arpoon' },
+        { '<leader>a', group = '[A]vante' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
@@ -587,24 +588,8 @@ require('lazy').setup({
       }
 
       -- Ensure the servers and tools above are installed
-      local function getLinuxDistro()
-        local file = io.open('/etc/os-release', 'r')
-        if not file then
-          return nil
-        end
-
-        for line in file:lines() do
-          if line:match '^NAME=' then
-            -- Extracting the value part after NAME=
-            return line:match '^NAME=(.*)'
-          end
-        end
-
-        file:close()
-        return nil
-      end
-
-      local linuxDistro = getLinuxDistro()
+      local platform = require 'custom.utils.platform'
+      local linuxDistro = platform.getLinuxDistro()
       print(linuxDistro)
 
       -- Nix language servers also require nix to be available
@@ -1022,6 +1007,7 @@ require('lazy').setup({
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'custom.plugins.oil', -- adds gitsigns recommend keymaps
+  require 'custom.plugins.avante', -- adds ai code completion tools
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

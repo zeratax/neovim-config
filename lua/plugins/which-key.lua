@@ -13,7 +13,6 @@ return {
       { '<leader>d', group = '[D]ocument' },
       { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
       { '<leader>h', group = '[H]arpoon' },
-      { '<leader>a', group = '[A]vante' },
       { '<leader>r', group = '[R]ename' },
       { '<leader>s', group = '[S]earch' },
       { '<leader>t', group = '[T]oggle' },

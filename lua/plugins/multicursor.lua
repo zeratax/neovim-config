@@ -18,10 +18,10 @@ return {
     end)
     vim.keymap.set({ 'n', 'x' }, '<leader><up>', function()
       mc.lineSkipCursor(-1)
-    end)
+    end, { desc = 'MC skip cursor up' })
     vim.keymap.set({ 'n', 'x' }, '<leader><down>', function()
       mc.lineSkipCursor(1)
-    end)
+    end, { desc = 'MC skip cursor down' })
     vim.keymap.set({ 'n', 'x' }, '<C-k>', function()
       mc.lineAddCursor(-1)
     end)
@@ -38,16 +38,16 @@ return {
     -- Match cursors
     vim.keymap.set({ 'n', 'x' }, '<leader>n', function()
       mc.matchAddCursor(1)
-    end)
+    end, { desc = 'MC match [n]ext' })
     vim.keymap.set({ 'n', 'x' }, '<leader>m', function()
       mc.matchSkipCursor(1)
-    end)
+    end, { desc = 'MC skip [m]atch' })
     vim.keymap.set({ 'n', 'x' }, '<leader>N', function()
       mc.matchAddCursor(-1)
-    end)
+    end, { desc = 'MC match prev' })
     vim.keymap.set({ 'n', 'x' }, '<leader>M', function()
       mc.matchSkipCursor(-1)
-    end)
+    end, { desc = 'MC skip prev' })
 
     -- Operator to match word under cursor
     vim.keymap.set({ 'n', 'x' }, 'mw', function()
@@ -56,7 +56,7 @@ return {
     vim.keymap.set('n', 'mW', mc.operator)
 
     -- Add all matches in the document
-    vim.keymap.set({ 'n', 'x' }, '<leader>A', mc.matchAllAddCursors)
+    vim.keymap.set({ 'n', 'x' }, '<leader>A', mc.matchAllAddCursors, { desc = 'MC match [A]ll' })
 
     -- Rotate the main cursor
     vim.keymap.set({ 'n', 'x' }, '<left>', mc.nextCursor)
@@ -65,7 +65,7 @@ return {
     vim.keymap.set({ 'n', 'x' }, '<C-h>', mc.prevCursor)
 
     -- Delete the main cursor
-    vim.keymap.set({ 'n', 'x' }, '<leader>x', mc.deleteCursor)
+    vim.keymap.set({ 'n', 'x' }, '<leader>x', mc.deleteCursor, { desc = 'MC delete cursor' })
 
     -- Add and remove cursors with control + left click
     vim.keymap.set('n', '<c-leftmouse>', mc.handleMouse)
@@ -75,7 +75,7 @@ return {
     vim.keymap.set({ 'n', 'x' }, '<c-q>', mc.toggleCursor)
 
     -- Clone every cursor and disable the originals
-    vim.keymap.set({ 'n', 'x' }, '<leader><c-q>', mc.duplicateCursors)
+    vim.keymap.set({ 'n', 'x' }, '<leader><c-q>', mc.duplicateCursors, { desc = 'MC duplicate cursors' })
 
     -- Escape handler for multicursor
     vim.keymap.set('n', '<esc>', function()
@@ -92,7 +92,7 @@ return {
     vim.keymap.set('n', '<leader>gv', mc.restoreCursors)
 
     -- Align cursor columns
-    vim.keymap.set('n', '<leader>a', mc.alignCursors)
+    vim.keymap.set('n', '<leader>a', mc.alignCursors, { desc = 'MC [a]lign cursors' })
 
     -- Split visual selections by regex
     vim.keymap.set('x', 'S', mc.splitCursors)

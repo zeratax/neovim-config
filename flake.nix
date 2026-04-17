@@ -18,6 +18,8 @@
         gcc
         gnumake
         unzip
+        cargo
+        rustc
 
         # language servers
         clang-tools # clangd
@@ -76,6 +78,7 @@
           customRC = ''
             lua << EOF
             local config_path = "${neovimConfig}"
+            vim.g.nix_config_path = config_path
             vim.opt.rtp:prepend(config_path)
             package.path = config_path .. "/lua/?.lua;" .. config_path .. "/lua/?/init.lua;" .. package.path
             dofile(config_path .. "/init.lua")

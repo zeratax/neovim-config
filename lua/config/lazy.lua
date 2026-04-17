@@ -29,6 +29,7 @@ require('lazy').setup({
     reset_packpath = true,
     rtp = {
       reset = true,
+      paths = vim.g.nix_config_path and { vim.g.nix_config_path } or {},
       disabled_plugins = {
         'gzip',
         'matchit',

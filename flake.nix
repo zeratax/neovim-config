@@ -52,6 +52,7 @@
         # other
         gdb
         nodejs # needed for vtsls and other node-based tools
+        tree-sitter
       ];
 
       neovimConfig = pkgs.stdenv.mkDerivation {
@@ -62,6 +63,7 @@
           mkdir -p $out
           cp init.lua $out/
           cp -r lua $out/
+          cp -r queries $out/
         '';
       };
 

@@ -240,20 +240,17 @@ return {
       -- kotlin_lsp = {},
     }
 
-    -- Detect platform and add Nix language servers if available
+    -- Detect platform
     local platform = require 'utils.platform'
     local linuxDistro = platform.getLinuxDistro()
+    local has_nix = vim.fn.executable 'nix' == 1
 
-    -- Nix language servers also require nix to be available
-    if vim.fn.executable 'nix' == 1 then
-      servers['nil_ls'] = {}
-      servers['nixd'] = {}
-      -- servers['statix'] = {}
-    end
-
-    -- NixOS should install these packages itself
-    -- while other operating systems should just use mason
-    if linuxDistro and linuxDistro:match 'NixOS' then
+    -- When nix is available (NixOS or Home Manager), all tools come from the nix wrapper —
+    -- register servers directly and skip Mason entirely
+    if has_nix then
+      vim.lsp.config('nil_ls', {})
+      vim.lsp.config('nixd', {})
+      -- vim.lsp.config('statix', {})
       for server_name, server_config in pairs(servers) do
         vim.lsp.config(server_name, server_config)
       end

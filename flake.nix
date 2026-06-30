@@ -10,7 +10,14 @@
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
     packages = forAllSystems (system: let
-      pkgs = import nixpkgs {inherit system;};
+      pkgs = import nixpkgs {
+        inherit system;
+        # vue-language-server pins pnpm_10_34_0, which nixpkgs marks insecure
+        # (CVE-2026-55180/55487/55697/55698). The patched pnpm_10 (10.34.4)
+        # rejects the upstream lockfile (missing-integrity tarball), so we
+        # have to stay on 10.34.0 for now.
+        config.permittedInsecurePackages = ["pnpm-10.34.0"];
+      };
 
       # External packages neovim needs on PATH
       runtimeDeps = with pkgs; [

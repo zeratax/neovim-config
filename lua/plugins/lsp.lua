@@ -249,10 +249,13 @@ return {
     -- register servers directly and skip Mason entirely
     if has_nix then
       vim.lsp.config('nil_ls', {})
+      vim.lsp.enable('nil_ls')
       vim.lsp.config('nixd', {})
+      vim.lsp.enable('nixd')
       -- vim.lsp.config('statix', {})
       for server_name, server_config in pairs(servers) do
         vim.lsp.config(server_name, server_config)
+        vim.lsp.enable(server_name)
       end
     else
       -- Use Mason to install and manage LSP servers
